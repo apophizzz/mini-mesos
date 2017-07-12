@@ -1,0 +1,121 @@
+version: '3.0'
+services:
+
+  zoo1:
+    image: "zookeeper:latest"
+    container_name: "zoo_1"
+    environment: 
+       ZOO_MY_ID: 1
+    volumes:
+      - ./zoo.cfg:/conf/zoo.cfg
+    ports: 
+      - "2181:2181"
+
+
+  zoo2:
+    image: "zookeeper:latest"
+    container_name: "zoo_2"
+    environment:
+       ZOO_MY_ID: 2
+    volumes:
+      - ./zoo.cfg:/conf/zoo.cfg
+    ports:
+      - "2182:2181"
+
+
+  zoo3:
+    image: "zookeeper:latest"
+    container_name: "zoo_3"
+    environment:
+      ZOO_MY_ID: 3
+    volumes:
+      - ./zoo.cfg:/conf/zoo.cfg
+    ports:
+      - "2183:2181"
+
+
+
+
+
+  mesos-master-1:
+    image: "mesosphere/mesos-master:1.1.1"
+    container_name: "mesos_master_1"
+    env_file:
+      - ./mesos-master-env
+    volumes:
+      - ./log/mesos_1:/var/log/mesos
+      - ./tmp/mesos_1:/var/tmp/mesos
+    ports:
+      - "5050:5050"
+     
+
+  mesos-master-2:
+    image: "mesosphere/mesos-master:1.1.1"
+    container_name: "mesos_master_2"
+    env_file:
+      - ./mesos-master-env
+    volumes:
+      - ./log/mesos_2:/var/log/mesos
+      - ./tmp/mesos_2:/var/tmp/mesos
+    ports:
+      - "5051:5050"
+
+
+  mesos-master-3:
+    image: "mesosphere/mesos-master:1.1.1"
+    container_name: "mesos_master_3"
+    env_file:
+      - ./mesos-master-env
+    volumes:
+      - ./log/mesos_3:/var/log/mesos
+      - ./tmp/mesos_3:/var/tmp/mesos
+    ports:
+      - "5052:5050"
+
+
+
+  
+
+  mesos-slave:
+    image: "mesosphere/mesos-slave:1.1.1"
+    container_name: "mesos_slave"
+    env_file:
+      - ./mesos-slave-env
+    volumes:
+      - ./log/mesos-slave:/var/log/mesos
+      - ./tmp/mesos-slave:/var/tmp/mesos
+      - /cgroup:/cgroup
+      - /sys:/sys
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "5055:5055"
+
+
+
+  marathon1:
+    image: "mesosphere/marathon:v1.4.2"
+    container_name: "marathon_1"
+    ports:
+      - "8081:8088"
+    env_file:
+      - ./marathon-env
+  
+  marathon2:
+    image: "mesosphere/marathon:v1.4.2"
+    container_name: "marathon_2"
+    ports:
+      - "8082:8088"
+    env_file:
+      - ./marathon-env
+
+
+  marathon3:
+    image: "mesosphere/marathon:v1.4.2"
+    container_name: "marathon_3"
+    ports:
+      - "8083:8088"
+    env_file:
+      - ./marathon-env
+
+
+
