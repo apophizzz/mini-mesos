@@ -74,48 +74,53 @@ services:
 
 
 
-  
 
-  mesos-slave:
-    image: "mesosphere/mesos-slave:1.1.1"
-    container_name: "mesos_slave"
+
+  thermos1:
+    image: "pkleindienst/aurora-executor:latest"
+    container_name: "aurora-executor_1"
     env_file:
-      - ./mesos-slave-env
+      - ./executor-env
     volumes:
-      - ./log/mesos-slave:/var/log/mesos
       - ./tmp/mesos-slave:/var/tmp/mesos
+      - ./log/mesos-slave:/var/log/mesos
+      - /var/run/docker.sock:/var/run/docker.sock
       - /cgroup:/cgroup
       - /sys:/sys
-      - /var/run/docker.sock:/var/run/docker.sock
-    ports:
-      - "5055:5055"
+    
 
 
-
-  marathon1:
-    image: "mesosphere/marathon:v1.4.2"
-    container_name: "marathon_1"
+  aurora1:
+    image: "pkleindienst/aurora-scheduler:latest"
+    container_name: "aurora-scheduler-1"
+    env_file:
+      - ./scheduler1-env
     ports:
       - "8081:8088"
+
+  aurora2:
+    image: "pkleindienst/aurora-scheduler:latest"
+    container_name: "aurora-scheduler-2"
     env_file:
-      - ./marathon-env
-  
-  marathon2:
-    image: "mesosphere/marathon:v1.4.2"
-    container_name: "marathon_2"
+      - ./scheduler2-env
     ports:
       - "8082:8088"
+
+  aurora3:
+    image: "pkleindienst/aurora-scheduler:latest"
+    container_name: "aurora-scheduler-3"
     env_file:
-      - ./marathon-env
-
-
-  marathon3:
-    image: "mesosphere/marathon:v1.4.2"
-    container_name: "marathon_3"
+      - ./scheduler3-env
     ports:
       - "8083:8088"
-    env_file:
-      - ./marathon-env
 
+
+  aurora-cli:
+    image: "pkleindienst/aurora-cli"
+    container_name: "aurora_cli"
+    volumes:
+      - ./clusters.json:/var/aurora/clusters.json
+      - ./nginx-docker.aurora:/nginx-docker.aurora
+    entrypoint: sleep 1000000
 
 
