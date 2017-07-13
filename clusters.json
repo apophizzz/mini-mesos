@@ -1,0 +1,11 @@
+[
+  {
+    "name": "demo",
+    "auth_mechanism": "UNAUTHENTICATED",
+    "scheduler_zk_path": "/aurora",
+    "slave_root": "/var/tmp/mesos",
+    "slave_run_directory": "latest",
+    "scheduler_uri": "aurora1:5555,aurora2:5555,aurora3:5555",
+    "zk": "zoo1:2181,zoo2:2181,zoo3:2181"
+  }
+]

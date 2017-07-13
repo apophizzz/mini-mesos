@@ -1,0 +1,12 @@
+HTTP_PORT=8088
+CLUSTER_NAME=aurora
+BACKUP_DIR=/tmp/aurora/backup
+MESOS_MASTERS=zk://zoo1:2181,zoo2:2181,zoo3:2181/mesos
+AURORA_ZK_PATH=/aurora
+ZK_ENDPOINTS=zoo1:2181,zoo2:2181,zoo3:2181
+NATIVE_LOG_FILE_PATH=/var/lib/aurora/scheduler/db
+NATIVE_LOG_ZK_GROUP_PATH=/tmp/aurora/replicated-log
+HOSTNAME=aurora2
+NATIVE_LOG_QUORUM_SIZE=1
+ALLOWED_CONTAINER_TYPES=MESOS,DOCKER
+THERMOS_EXECUTOR_PATH=/usr/share/aurora/bin/thermos_executor.pex

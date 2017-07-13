@@ -1,0 +1,21 @@
+
+docker = Process(
+    name = 'docker-run-nginx',
+    cmdline = 'docker run -p {{thermos.ports[http]}}:80 nginx'
+)
+
+task = Task(
+    processes = [docker],
+    resources = Resources(cpu=0.1, ram=128*MB, disk=512*MB)
+)
+
+jobs = [
+    Service(
+        cluster = 'demo',
+        role = 'root',
+        environment = 'devel',
+        name = 'docker-nginx',
+        task = task,
+        instances = 3
+    )
+]

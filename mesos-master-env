@@ -4,3 +4,4 @@ MESOS_QUORUM=1
 MESOS_REGISTRY=in_memory
 MESOS_LOG_DIR=/var/log/mesos
 MESOS_WORK_DIR=/var/tmp/mesos
+MESOS_HOSTNAME=localhost

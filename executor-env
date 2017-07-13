@@ -1,0 +1,9 @@
+MESOS_PORT=5055
+MESOS_MASTER=zk://zoo1:2181,zoo2:2181,zoo3:2181/mesos
+MESOS_SWITCH_USER=0
+MESOS_CONTAINERIZERS=docker,mesos
+MESOS_LOG_DIR=/var/log/mesos
+MESOS_WORK_DIR=/var/tmp/mesos
+
+OBSERVER_PORT=1338
+MESOS_ROOT=/var/tmp/mesos
