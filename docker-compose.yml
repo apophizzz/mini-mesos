@@ -43,8 +43,8 @@ services:
     env_file:
       - ./mesos-master-env
     volumes:
-      - ./log/mesos_1:/var/log/mesos
-      - ./tmp/mesos_1:/var/tmp/mesos
+      - /tmp/log/mesos_1:/var/log/mesos
+      - /tmp/tmp/mesos_1:/var/tmp/mesos
     ports:
       - "5050:5050"
      
@@ -55,8 +55,8 @@ services:
     env_file:
       - ./mesos-master-env
     volumes:
-      - ./log/mesos_2:/var/log/mesos
-      - ./tmp/mesos_2:/var/tmp/mesos
+      - /tmp/log/mesos_2:/var/log/mesos
+      - /tmp/tmp/mesos_2:/var/tmp/mesos
     ports:
       - "5051:5050"
 
@@ -67,8 +67,8 @@ services:
     env_file:
       - ./mesos-master-env
     volumes:
-      - ./log/mesos_3:/var/log/mesos
-      - ./tmp/mesos_3:/var/tmp/mesos
+      - /tmp/log/mesos_3:/var/log/mesos
+      - /tmp/tmp/mesos_3:/var/tmp/mesos
     ports:
       - "5052:5050"
 
@@ -76,17 +76,19 @@ services:
 
 
 
-  thermos1:
-    image: "pkleindienst/aurora-executor:latest"
+  mesos-worker-1:
+    image: "pkleindienst/aurora-worker:latest"
     container_name: "aurora-executor_1"
     env_file:
       - ./executor-env
     volumes:
-      - ./tmp/mesos-slave:/var/tmp/mesos
-      - ./log/mesos-slave:/var/log/mesos
+      - /tmp/tmp/mesos-slave:/var/tmp/mesos
+      - /tmp/log/mesos-slave:/var/log/mesos
       - /var/run/docker.sock:/var/run/docker.sock
       - /cgroup:/cgroup
       - /sys:/sys
+    ports:
+      - "5055:5055"
     
 
 
@@ -114,13 +116,26 @@ services:
     ports:
       - "8083:8088"
 
+  marathon1:
+      image: "mesosphere/marathon:v1.4.2"
+      container_name: "marathon-scheduler-1"
+      env_file:
+        - ./marathon-env
+      ports:
+        - "8090:8088"
 
-  aurora-cli:
-    image: "pkleindienst/aurora-cli"
-    container_name: "aurora_cli"
-    volumes:
-      - ./clusters.json:/var/aurora/clusters.json
-      - ./nginx-docker.aurora:/nginx-docker.aurora
-    entrypoint: sleep 1000000
+  marathon2:
+      image: "mesosphere/marathon:v1.4.2"
+      container_name: "marathon-scheduler-2"
+      env_file:
+        - ./marathon-env
+      ports:
+        - "8091:8088"
 
-
+  marathon3:
+      image: "mesosphere/marathon:v1.4.2"
+      container_name: "marathon-scheduler-3"
+      env_file:
+        - ./marathon-env
+      ports:
+        - "8092:8088"
