@@ -50,18 +50,18 @@ services:
 
   marathon-1:
     image: "mesosphere/marathon:v1.4.2"
-    container_name: "marathon-scheduler-1"
+    container_name: "marathon_scheduler_1"
     env_file:
       - ./marathon/marathon-env
 
   marathon-2:
     image: "mesosphere/marathon:v1.4.2"
-    container_name: "marathon-scheduler-2"
+    container_name: "marathon_scheduler_2"
     env_file:
       - ./marathon/marathon-env
 
   marathon-3:
     image: "mesosphere/marathon:v1.4.2"
-    container_name: "marathon-scheduler-3"
+    container_name: "marathon_scheduler_3"
     env_file:
       - ./marathon/marathon-env

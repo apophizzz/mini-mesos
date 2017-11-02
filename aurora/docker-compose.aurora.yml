@@ -53,7 +53,7 @@ services:
 
     aurora-1:
       image: "pkleindienst/aurora-scheduler:latest"
-      container_name: "aurora-scheduler-1"
+      container_name: "aurora_scheduler_1"
       env_file:
         - ./aurora/aurora-scheduler-env
       environment:
@@ -61,7 +61,7 @@ services:
 
     aurora-2:
       image: "pkleindienst/aurora-scheduler:latest"
-      container_name: "aurora-scheduler-2"
+      container_name: "aurora_scheduler_2"
       env_file:
         - ./aurora/aurora-scheduler-env
       environment:
@@ -69,7 +69,7 @@ services:
 
     aurora-3:
       image: "pkleindienst/aurora-scheduler:latest"
-      container_name: "aurora-scheduler-3"
+      container_name: "aurora_scheduler_3"
       env_file:
         - ./aurora/aurora-scheduler-env
       environment:
