@@ -1,86 +1,76 @@
 version: '3.0'
 services:
 
-  zoo1:
+  ### ZOOKEEPER ###
+
+  zoo-1:
     image: "zookeeper:latest"
     container_name: "zoo_1"
     environment:
        ZOO_MY_ID: 1
     volumes:
       - ./zoo.cfg:/conf/zoo.cfg
-    ports:
-      - "2181:2181"
 
 
-  zoo2:
+  zoo-2:
     image: "zookeeper:latest"
     container_name: "zoo_2"
     environment:
        ZOO_MY_ID: 2
     volumes:
       - ./zoo.cfg:/conf/zoo.cfg
-    ports:
-      - "2182:2181"
 
 
-  zoo3:
+  zoo-3:
     image: "zookeeper:latest"
     container_name: "zoo_3"
     environment:
       ZOO_MY_ID: 3
     volumes:
       - ./zoo.cfg:/conf/zoo.cfg
-    ports:
-      - "2183:2181"
 
 
 
-
+  ### MESOS MASTER ###
 
   mesos-master-1:
     image: "mesosphere/mesos-master:1.1.1"
     container_name: "mesos_master_1"
     env_file:
-      - ./mesos-master-env-1
+      - ./mesos-master-env
     environment:
       - MESOS_HOSTNAME=mesos-master-1
     volumes:
       - /tmp/log/mesos_1:/var/log/mesos
       - /tmp/tmp/mesos_1:/var/tmp/mesos
-    ports:
-      - "5050:5050"
 
 
   mesos-master-2:
     image: "mesosphere/mesos-master:1.1.1"
     container_name: "mesos_master_2"
     env_file:
-      - ./mesos-master-env-2
+      - ./mesos-master-env
     environment:
       - MESOS_HOSTNAME=mesos-master-2
     volumes:
       - /tmp/log/mesos_2:/var/log/mesos
       - /tmp/tmp/mesos_2:/var/tmp/mesos
-    ports:
-      - "5051:5050"
 
 
   mesos-master-3:
     image: "mesosphere/mesos-master:1.1.1"
     container_name: "mesos_master_3"
     env_file:
-      - ./mesos-master-env-3
+      - ./mesos-master-env
     environment:
       - MESOS_HOSTNAME=mesos-master-3
     volumes:
       - /tmp/log/mesos_3:/var/log/mesos
       - /tmp/tmp/mesos_3:/var/tmp/mesos
-    ports:
-      - "5052:5050"
 
 
 
-
+  ### MESOS AGENT ###
 
   mesos-worker-1:
     image: "pkleindienst/aurora-worker:latest"
@@ -126,62 +116,50 @@ services:
       - MESOS_HOSTNAME=mesos-worker-3
 
 
-  aurora1:
+
+  ### AURORA ###
+
+  aurora-1:
     image: "pkleindienst/aurora-scheduler:latest"
     container_name: "aurora-scheduler-1"
     env_file:
-      - ./scheduler1-env
+      - ./aurora-scheduler-env
     environment:
-      - THERMOS_EXECUTOR_CPU=0.01
-      - THERMOS_EXECUTOR_RAM=16MB
-      - NATIVE_LOG_QUORUM_SIZE=2
-    ports:
-      - "8081:8088"
+      - HOSTNAME=aurora1
 
-  aurora2:
+  aurora-2:
     image: "pkleindienst/aurora-scheduler:latest"
     container_name: "aurora-scheduler-2"
     env_file:
-      - ./scheduler2-env
+      - ./aurora-scheduler-env
     environment:
-      - THERMOS_EXECUTOR_CPU=0.01
-      - THERMOS_EXECUTOR_RAM=16MB
-      - NATIVE_LOG_QUORUM_SIZE=2  
-    ports:
-      - "8082:8088"
+      - HOSTNAME=aurora2
 
-  aurora3:
+  aurora-3:
     image: "pkleindienst/aurora-scheduler:latest"
     container_name: "aurora-scheduler-3"
     env_file:
-      - ./scheduler3-env
+      - ./aurora-scheduler-env
     environment:
-      - THERMOS_EXECUTOR_CPU=0.01
-      - THERMOS_EXECUTOR_RAM=16MB
-      - NATIVE_LOG_QUORUM_SIZE=2
-    ports:
-      - "8083:8088"
+      - HOSTNAME=aurora3
 
-  marathon1:
+
+  ### MARATHON ###
+
+  marathon-1:
       image: "mesosphere/marathon:v1.4.2"
       container_name: "marathon-scheduler-1"
       env_file:
         - ./marathon-env
-      ports:
-        - "8090:8088"
 
-  marathon2:
+  marathon-2:
       image: "mesosphere/marathon:v1.4.2"
       container_name: "marathon-scheduler-2"
       env_file:
         - ./marathon-env
-      ports:
-        - "8091:8088"
 
-  marathon3:
+  marathon-3:
       image: "mesosphere/marathon:v1.4.2"
       container_name: "marathon-scheduler-3"
       env_file:
         - ./marathon-env
-      ports:
-        - "8092:8088"
