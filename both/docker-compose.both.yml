@@ -1,0 +1,97 @@
+version: '3.0'
+services:
+
+
+  ### MESOS AGENT ###
+
+  mesos-worker-1:
+    image: "pkleindienst/aurora-worker:latest"
+    container_name: "mesos_worker_1"
+    env_file:
+      - ./aurora/mesos-worker-env
+    volumes:
+      - /tmp/tmp/mesos-slave1:/var/tmp/mesos
+      - /tmp/log/mesos-slave1:/var/log/mesos
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /cgroup:/cgroup
+      - /sys:/sys
+    environment:
+      - MESOS_HOSTNAME=mesos-worker-1
+
+
+  mesos-worker-2:
+    image: "pkleindienst/aurora-worker:latest"
+    container_name: "mesos_worker_2"
+    env_file:
+      - ./aurora/mesos-worker-env
+    volumes:
+      - /tmp/tmp/mesos-slave2:/var/tmp/mesos
+      - /tmp/log/mesos-slave2:/var/log/mesos
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /cgroup:/cgroup
+      - /sys:/sys
+    environment:
+      - MESOS_HOSTNAME=mesos-worker-2
+
+  mesos-worker-3:
+    image: "pkleindienst/aurora-worker:latest"
+    container_name: "mesos_worker_3"
+    env_file:
+      - ./aurora/mesos-worker-env
+    volumes:
+      - /tmp/tmp/mesos-slave3:/var/tmp/mesos
+      - /tmp/log/mesos-slave3:/var/log/mesos
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /cgroup:/cgroup
+      - /sys:/sys
+    environment:
+      - MESOS_HOSTNAME=mesos-worker-3
+
+
+
+  ### AURORA ###
+
+  aurora-1:
+    image: "pkleindienst/aurora-scheduler:latest"
+    container_name: "aurora-scheduler-1"
+    env_file:
+      - ./aurora/aurora-scheduler-env
+    environment:
+      - HOSTNAME=aurora1
+
+  aurora-2:
+    image: "pkleindienst/aurora-scheduler:latest"
+    container_name: "aurora-scheduler-2"
+    env_file:
+      - ./aurora/aurora-scheduler-env
+    environment:
+      - HOSTNAME=aurora2
+
+  aurora-3:
+    image: "pkleindienst/aurora-scheduler:latest"
+    container_name: "aurora-scheduler-3"
+    env_file:
+      - ./aurora/aurora-scheduler-env
+    environment:
+      - HOSTNAME=aurora3
+
+
+  ### MARATHON ###
+
+  marathon-1:
+    image: "mesosphere/marathon:v1.4.2"
+    container_name: "marathon-scheduler-1"
+    env_file:
+      - ./marathon/marathon-env
+
+  marathon-2:
+    image: "mesosphere/marathon:v1.4.2"
+    container_name: "marathon-scheduler-2"
+    env_file:
+      - ./marathon/marathon-env
+
+  marathon-3:
+    image: "mesosphere/marathon:v1.4.2"
+    container_name: "marathon-scheduler-3"
+    env_file:
+      - ./marathon/marathon-env
