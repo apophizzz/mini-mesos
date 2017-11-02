@@ -76,7 +76,7 @@ services:
     image: "pkleindienst/aurora-worker:latest"
     container_name: "mesos_worker_1"
     env_file:
-      - ./executor-env
+      - ./mesos-worker-env
     volumes:
       - /tmp/tmp/mesos-slave1:/var/tmp/mesos
       - /tmp/log/mesos-slave1:/var/log/mesos
@@ -91,7 +91,7 @@ services:
     image: "pkleindienst/aurora-worker:latest"
     container_name: "mesos_worker_2"
     env_file:
-      - ./executor-env
+      - ./mesos-worker-env
     volumes:
       - /tmp/tmp/mesos-slave2:/var/tmp/mesos
       - /tmp/log/mesos-slave2:/var/log/mesos
@@ -105,7 +105,7 @@ services:
     image: "pkleindienst/aurora-worker:latest"
     container_name: "mesos_worker_3"
     env_file:
-      - ./executor-env
+      - ./mesos-worker-env
     volumes:
       - /tmp/tmp/mesos-slave3:/var/tmp/mesos
       - /tmp/log/mesos-slave3:/var/log/mesos
