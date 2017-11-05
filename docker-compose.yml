@@ -41,8 +41,8 @@ services:
     environment:
       - MESOS_HOSTNAME=mesos-master-1
     volumes:
-      - /tmp/log/mesos_1:/var/log/mesos
-      - /tmp/tmp/mesos_1:/var/tmp/mesos
+      - /tmp/mesos_log/master_1:/var/log/mesos
+      - /tmp/mesos_tmp/master_1:/var/tmp/mesos
 
 
   mesos-master-2:
@@ -53,8 +53,8 @@ services:
     environment:
       - MESOS_HOSTNAME=mesos-master-2
     volumes:
-      - /tmp/log/mesos_2:/var/log/mesos
-      - /tmp/tmp/mesos_2:/var/tmp/mesos
+      - /tmp/mesos_log/master_2:/var/log/mesos
+      - /tmp/mesos_tmp/master_2:/var/tmp/mesos
 
 
   mesos-master-3:
@@ -65,8 +65,8 @@ services:
     environment:
       - MESOS_HOSTNAME=mesos-master-3
     volumes:
-      - /tmp/log/mesos_3:/var/log/mesos
-      - /tmp/tmp/mesos_3:/var/tmp/mesos
+      - /tmp/mesos_log/master_3:/var/log/mesos
+      - /tmp/mesos_tmp/master_3:/var/tmp/mesos
 
 
   ### MESOS AGENT ###
@@ -77,8 +77,8 @@ services:
     env_file:
       - ./marathon/mesos-agent-env
     volumes:
-      - /tmp/tmp/mesos-slave1:/var/tmp/mesos
-      - /tmp/log/mesos-slave1:/var/log/mesos
+      - /tmp/mesos_tmp/agent_1:/var/tmp/mesos
+      - /tmp/mesos_log/agent_1:/var/log/mesos
       - /var/run/docker.sock:/var/run/docker.sock
       - /cgroup:/cgroup
       - /sys:/sys
@@ -92,8 +92,8 @@ services:
     env_file:
       - ./marathon/mesos-agent-env
     volumes:
-      - /tmp/tmp/mesos-slave2:/var/tmp/mesos
-      - /tmp/log/mesos-slave2:/var/log/mesos
+      - /tmp/mesos_tmp/agent_2:/var/tmp/mesos
+      - /tmp/mesos_log/agent_2:/var/log/mesos
       - /var/run/docker.sock:/var/run/docker.sock
       - /cgroup:/cgroup
       - /sys:/sys
@@ -106,8 +106,8 @@ services:
     env_file:
       - ./marathon/mesos-agent-env
     volumes:
-      - /tmp/tmp/mesos-slave3:/var/tmp/mesos
-      - /tmp/log/mesos-slave3:/var/log/mesos
+      - /tmp/mesos_tmp/agent_3:/var/tmp/mesos
+      - /tmp/mesos_log/agent_3:/var/log/mesos
       - /var/run/docker.sock:/var/run/docker.sock
       - /cgroup:/cgroup
       - /sys:/sys

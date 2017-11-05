@@ -10,8 +10,8 @@ services:
       env_file:
         - ./aurora/mesos-worker-env
       volumes:
-        - /tmp/tmp/mesos-slave1:/var/tmp/mesos
-        - /tmp/log/mesos-slave1:/var/log/mesos
+        - /tmp/mesos_tmp/worker_1:/var/tmp/mesos
+        - /tmp/mesos_log/worker_1:/var/log/mesos
         - /var/run/docker.sock:/var/run/docker.sock
         - /cgroup:/cgroup
         - /sys:/sys
@@ -25,8 +25,8 @@ services:
       env_file:
         - ./aurora/mesos-worker-env
       volumes:
-        - /tmp/tmp/mesos-slave2:/var/tmp/mesos
-        - /tmp/log/mesos-slave2:/var/log/mesos
+        - /tmp/mesos_tmp/worker_2:/var/tmp/mesos
+        - /tmp/mesos_log/worker_2:/var/log/mesos
         - /var/run/docker.sock:/var/run/docker.sock
         - /cgroup:/cgroup
         - /sys:/sys
@@ -39,8 +39,8 @@ services:
       env_file:
         - ./aurora/mesos-worker-env
       volumes:
-        - /tmp/tmp/mesos-slave3:/var/tmp/mesos
-        - /tmp/log/mesos-slave3:/var/log/mesos
+        - /tmp/mesos_tmp/worker_3:/var/tmp/mesos
+        - /tmp/mesos_tmp/worker_3:/var/log/mesos
         - /var/run/docker.sock:/var/run/docker.sock
         - /cgroup:/cgroup
         - /sys:/sys

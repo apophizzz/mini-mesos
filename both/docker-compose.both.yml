@@ -4,48 +4,48 @@ services:
 
   ### MESOS AGENT ###
 
-  mesos-worker-1:
+  mesos-agent-1:
     image: "pkleindienst/aurora-worker:latest"
-    container_name: "mesos_worker_1"
+    container_name: "mesos_agent_1"
     env_file:
       - ./aurora/mesos-worker-env
     volumes:
-      - /tmp/tmp/mesos-slave1:/var/tmp/mesos
-      - /tmp/log/mesos-slave1:/var/log/mesos
+      - /tmp/mesos_tmp/agent_1:/var/tmp/mesos
+      - /tmp/mesos_log/agent_1:/var/log/mesos
       - /var/run/docker.sock:/var/run/docker.sock
       - /cgroup:/cgroup
       - /sys:/sys
     environment:
-      - MESOS_HOSTNAME=mesos-worker-1
+      - MESOS_HOSTNAME=mesos-agent-1
 
 
-  mesos-worker-2:
+  mesos-agent-2:
     image: "pkleindienst/aurora-worker:latest"
-    container_name: "mesos_worker_2"
+    container_name: "mesos_agent_2"
     env_file:
       - ./aurora/mesos-worker-env
     volumes:
-      - /tmp/tmp/mesos-slave2:/var/tmp/mesos
-      - /tmp/log/mesos-slave2:/var/log/mesos
+      - /tmp/mesos_tmp/agent_2:/var/tmp/mesos
+      - /tmp/mesos_log/agent_2:/var/log/mesos
       - /var/run/docker.sock:/var/run/docker.sock
       - /cgroup:/cgroup
       - /sys:/sys
     environment:
-      - MESOS_HOSTNAME=mesos-worker-2
+      - MESOS_HOSTNAME=mesos-agent-2
+      mesos-agent-3:
 
-  mesos-worker-3:
     image: "pkleindienst/aurora-worker:latest"
-    container_name: "mesos_worker_3"
+    container_name: "mesos_agent_3"
     env_file:
       - ./aurora/mesos-worker-env
     volumes:
-      - /tmp/tmp/mesos-slave3:/var/tmp/mesos
-      - /tmp/log/mesos-slave3:/var/log/mesos
+      - /tmp/mesos_tmp/agent_3:/var/tmp/mesos
+      - /tmp/mesos_log/agent_3:/var/log/mesos
       - /var/run/docker.sock:/var/run/docker.sock
       - /cgroup:/cgroup
       - /sys:/sys
     environment:
-      - MESOS_HOSTNAME=mesos-worker-3
+      - MESOS_HOSTNAME=mesos-agent-3
 
 
 
@@ -57,7 +57,7 @@ services:
     env_file:
       - ./aurora/aurora-scheduler-env
     environment:
-      - HOSTNAME=aurora1
+      - HOSTNAME=aurora-1
 
   aurora-2:
     image: "pkleindienst/aurora-scheduler:latest"
@@ -65,7 +65,7 @@ services:
     env_file:
       - ./aurora/aurora-scheduler-env
     environment:
-      - HOSTNAME=aurora2
+      - HOSTNAME=aurora-2
 
   aurora-3:
     image: "pkleindienst/aurora-scheduler:latest"
@@ -73,7 +73,7 @@ services:
     env_file:
       - ./aurora/aurora-scheduler-env
     environment:
-      - HOSTNAME=aurora3
+      - HOSTNAME=aurora-3
 
 
   ### MARATHON ###
