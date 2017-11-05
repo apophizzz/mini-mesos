@@ -45,5 +45,20 @@ $ aurora job killall demo/aurora/test/hello-go
 ### Start Firefox
 
 ```
-$ docker run -ti --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --net=minimesos_default  pkleindienst/ubuntu-firefox
+$ docker run -ti --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --net=minimesos_default --name firefox pkleindienst/ubuntu-firefox
+$ docker network connect bridge firefox
+```
+
+## Cleanup
+
+### Shutdown containers
+
+```
+$ docker-compose -f docker-compose.yml -f ./marathon/docker-compose.marathon.yml down
+
+$ docker-compose -f docker-compose.yml -f ./aurora/docker-compose.aurora.yml down
+
+$ docker-compose -f docker-compose.yml -f ./both/docker-compose.both.yml down
+
+$ sudo rm -rf /tmp/mesos_tmp/ /tmp/mesos_log
 ```
