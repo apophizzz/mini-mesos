@@ -4,7 +4,7 @@ services:
 
     ### MESOS AGENT ###
 
-    mesos-worker-1:
+    mesos-agent-1:
       image: "pkleindienst/aurora-worker:latest"
       container_name: "mesos_worker_1"
       env_file:
@@ -19,7 +19,7 @@ services:
         - MESOS_HOSTNAME=mesos-worker-1
 
 
-    mesos-worker-2:
+    mesos-agent-2:
       image: "pkleindienst/aurora-worker:latest"
       container_name: "mesos_worker_2"
       env_file:
@@ -33,7 +33,7 @@ services:
       environment:
         - MESOS_HOSTNAME=mesos-worker-2
 
-    mesos-worker-3:
+    mesos-agent-3:
       image: "pkleindienst/aurora-worker:latest"
       container_name: "mesos_worker_3"
       env_file:

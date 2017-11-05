@@ -67,3 +67,49 @@ services:
     volumes:
       - /tmp/log/mesos_3:/var/log/mesos
       - /tmp/tmp/mesos_3:/var/tmp/mesos
+
+
+  ### MESOS AGENT ###
+
+  mesos-agent-1:
+    image: "mesosphere/mesos-slave:1.1.1"
+    container_name: "mesos_agent_1"
+    env_file:
+      - ./marathon/mesos-agent-env
+    volumes:
+      - /tmp/tmp/mesos-slave1:/var/tmp/mesos
+      - /tmp/log/mesos-slave1:/var/log/mesos
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /cgroup:/cgroup
+      - /sys:/sys
+    environment:
+      - MESOS_HOSTNAME=mesos-agent-1
+
+
+  mesos-agent-2:
+    image: "mesosphere/mesos-slave:1.1.1"
+    container_name: "mesos_agent_2"
+    env_file:
+      - ./marathon/mesos-agent-env
+    volumes:
+      - /tmp/tmp/mesos-slave2:/var/tmp/mesos
+      - /tmp/log/mesos-slave2:/var/log/mesos
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /cgroup:/cgroup
+      - /sys:/sys
+    environment:
+      - MESOS_HOSTNAME=mesos-agent-2
+
+  mesos-agent-3:
+    image: "pkleindienst/aurora-worker:latest"
+    container_name: "mesos_worker_3"
+    env_file:
+      - ./marathon/mesos-agent-env
+    volumes:
+      - /tmp/tmp/mesos-slave3:/var/tmp/mesos
+      - /tmp/log/mesos-slave3:/var/log/mesos
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /cgroup:/cgroup
+      - /sys:/sys
+    environment:
+      - MESOS_HOSTNAME=mesos-agent-3
