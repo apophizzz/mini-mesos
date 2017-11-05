@@ -16,7 +16,7 @@ services:
         - /cgroup:/cgroup
         - /sys:/sys
       environment:
-        - MESOS_HOSTNAME=mesos-worker-1
+        - MESOS_HOSTNAME=mesos-agent-1
 
 
     mesos-agent-2:
@@ -31,7 +31,7 @@ services:
         - /cgroup:/cgroup
         - /sys:/sys
       environment:
-        - MESOS_HOSTNAME=mesos-worker-2
+        - MESOS_HOSTNAME=mesos-agent-2
 
     mesos-agent-3:
       image: "pkleindienst/aurora-worker:latest"
@@ -45,7 +45,7 @@ services:
         - /cgroup:/cgroup
         - /sys:/sys
       environment:
-        - MESOS_HOSTNAME=mesos-worker-3
+        - MESOS_HOSTNAME=mesos-agent-3
 
 
 
@@ -57,7 +57,7 @@ services:
       env_file:
         - ./aurora/aurora-scheduler-env
       environment:
-        - HOSTNAME=aurora1
+        - HOSTNAME=aurora-1
 
     aurora-2:
       image: "pkleindienst/aurora-scheduler:latest"
@@ -65,7 +65,7 @@ services:
       env_file:
         - ./aurora/aurora-scheduler-env
       environment:
-        - HOSTNAME=aurora2
+        - HOSTNAME=aurora-2
 
     aurora-3:
       image: "pkleindienst/aurora-scheduler:latest"
@@ -73,4 +73,4 @@ services:
       env_file:
         - ./aurora/aurora-scheduler-env
       environment:
-        - HOSTNAME=aurora3
+        - HOSTNAME=aurora-3
