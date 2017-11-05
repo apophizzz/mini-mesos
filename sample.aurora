@@ -1,0 +1,21 @@
+
+hello = Process(
+    name = 'hello-go',
+    cmdline = 'docker run -p {{thermos.ports[http]}}:8080 pkleindienst/hello-go'
+)
+
+task = Task(
+    processes = [hello],
+    resources = Resources(cpu=0.1, ram=16*MB, disk=1*MB)
+)
+
+jobs = [
+    Service(
+        cluster = 'demo',
+        role = 'aurora',
+        environment = 'test',
+        name = 'hello-go',
+        task = task,
+        instances = 3
+    )
+]
