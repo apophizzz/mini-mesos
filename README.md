@@ -17,7 +17,7 @@ $ docker-compose -f docker-compose.yml -f ./aurora/docker-compose.aurora.yml up 
 ### With both frameworks
 
 ```
-$ docker-compose -f docker-compose.yml -f ./both/docker-compose.both.yml up -d
+$ docker-compose -f docker-compose.yml -f ./marathon/docker-compose.marathon.yml -f ./aurora/docker-compose.aurora.yml up -d
 ```
 
 ## Aurora CLI
@@ -58,7 +58,7 @@ $ docker-compose -f docker-compose.yml -f ./marathon/docker-compose.marathon.yml
 
 $ docker-compose -f docker-compose.yml -f ./aurora/docker-compose.aurora.yml down
 
-$ docker-compose -f docker-compose.yml -f ./both/docker-compose.both.yml down
+$ docker-compose -f docker-compose.yml -f ./marathon/docker-compose.marathon.yml -f ./aurora/docker-compose.aurora.yml down
 
 $ sudo rm -rf /tmp/mesos_tmp/ /tmp/mesos_log
 ```
